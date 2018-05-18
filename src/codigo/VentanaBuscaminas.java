@@ -139,18 +139,30 @@ public class VentanaBuscaminas extends javax.swing.JFrame {
             int f = r.nextInt(filas);
             int c = r.nextInt(columnas);
             
-            arrayBotones[f][c].setMina(1);
-//            arrayBotones[f][c].setText("m");                                  //Version con nuemros
-            
-            //TODO hay que hacer una versión que chequee si en la casilla
-            // seleccionada ya hay una mina, porque en ese caso tiene que 
-            // buscar otra
-            
+            if (arrayBotones[f][c].getMina() == 0) {
+	    arrayBotones[f][c].setMina(1);
+//            arrayBotones[f][c].setText("m");                                    //Version con numeros
+	} else {
+	    ponMinaEnOtroLugar();
+	}
 
             
             
         }
     }
+     
+      private void ponMinaEnOtroLugar() {                                       //Metodo para que no ponga minas donde ya las tenia puestas, a parte no le pongo parametro de entrada
+	Random r = new Random();
+	int f = r.nextInt(filas);
+	int c = r.nextInt(columnas);
+	if (arrayBotones[f][c].getMina() == 0) {
+	    arrayBotones[f][c].setMina(1);
+//            arrayBotones[f][c].setText("m");                                    //Version con numeros
+	} else {
+	    ponMinaEnOtroLugar();
+	}
+    }
+
      
     
     
