@@ -8,9 +8,7 @@ package codigo;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.Random;
-import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
 /**
@@ -58,52 +56,8 @@ public class VentanaBuscaminas extends javax.swing.JFrame {
         }
                 
          if (e.getButton() == MouseEvent.BUTTON1 && miBoton.isEnabled()){ 
-            //versión ITERATIVA del buscaminas. Esta versión NO se puede entregar
-            // porque tienes que entregar la RECURSIVA
-            //Si es una bomba --> Explota y se acaba el juego.
-            //Si no es una bomba
-            //Si tiene minas alrededor mostramos cuantas
-
-            if(miBoton.getNumeroMinasAlrededor() == 0){
-                ArrayList<Boton> listaDeCasillasAMirar = new ArrayList();
-                listaDeCasillasAMirar.add(miBoton);
-                
-                while(listaDeCasillasAMirar.size() > 0 ){
-                    Boton b = listaDeCasillasAMirar.get(0);
-                    for(int k = -1; k<2; k++){
-                        for(int m = -1; m<2; m++){
-                            if((b.getI() + k >= 0)&&(b.getJ() + m >= 0)&&
-                                    (b.getI() + k < filas) && 
-                                    (b.getJ() + m < columnas))
-                            {
-                                if(arrayBotones[b.getI() + k]
-                                        [b.getJ() + m].isEnabled())
-                                {
-                                    if(arrayBotones[b.getI() + k][b.getJ() + m]
-                                            .getNumeroMinasAlrededor() == 0)
-                                    {
-                                        arrayBotones[b.getI() + k]
-                                                [b.getJ() + m].setEnabled(false);
-                                        
-                                        listaDeCasillasAMirar.
-                                                add(arrayBotones[b.getI() + k]
-                                                        [b.getJ() + m]);
-                                    }
-                                    else {
-                                        arrayBotones[b.getI() + k]
-                                                [b.getJ() + m].
-                                                setImagen(arrayBotones
-                                                        [b.getI() + k]
-                                                        [b.getJ() + m].
-                                                        getNumeroMinasAlrededor());
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    listaDeCasillasAMirar.remove(b);
-                } 
-            }
+             buscamina(miBoton);
+             
             if(arrayBotones[miBoton.getI()][miBoton.getJ()].
                     getNumeroMinasAlrededor() > 0)
             {
@@ -112,26 +66,54 @@ public class VentanaBuscaminas extends javax.swing.JFrame {
                       [miBoton.getJ()].getNumeroMinasAlrededor());
               miBoton.setImagen(Integer.parseInt(numero));
             }
-             if(arrayBotones[miBoton.getI()]
+            if(arrayBotones[miBoton.getI()]
                             [miBoton.getJ()].getMina() == 1)
              {
                 miBoton.setImagen(11);
-                miBoton.setEnabled(true);                  
-                JOptionPane.showMessageDialog(null, "You Lose");
-                
+                miBoton.setEnabled(true);                                  
+                JOptionPane.showMessageDialog(null, "Has perdido!! Juega otra vez");
+                getContentPane().setEnabled(false);
              }
-             if(arrayBotones[miBoton.getI()]
-                            [miBoton.getJ()].equals(arrayBotones[miBoton.getI()][miBoton.getJ()].getMina() == 1))
-             {
-                JOptionPane.showMessageDialog(null, "You Win!!");
-                removeAll();
-                revalidate();
-                repaint();
-                
-             }
+             
+        }
+         
+    }
+    private void buscamina(Boton boton) 
+    {
+        if (boton.getNumeroMinasAlrededor() == 0) 
+        {
+            for (int k = -1; k < 2; k++) 
+            {
+                for (int m = -1; m < 2; m++) 
+                {
+                    if ((boton.getI() + k >= 0) && (boton.getJ() + m >= 0)
+                            && (boton.getI() + k < filas)
+                            && (boton.getJ() + m < columnas)) 
+                    {
+                        if (arrayBotones[boton.getI() + k][boton.getJ() + m].
+                                isEnabled()) 
+                        {
+                            if (arrayBotones[boton.getI() + k][boton.getJ() + m]
+                                    .getNumeroMinasAlrededor() == 0) {
+                                arrayBotones[boton.getI() + k][boton.getJ() + m]
+                                        .setEnabled(false);
+                                buscamina(arrayBotones[boton.getI() + k]
+                                        [boton.getJ() + m]);
+                            } 
+                            else 
+                            {
+                                arrayBotones[boton.getI() + k][boton.getJ() + m].
+                                        setImagen(arrayBotones[boton.getI() + k]
+                                                [boton.getJ() + m].
+                                                getNumeroMinasAlrededor());
+                            }
+                        }
+                    }
+                }
+            }
+
         }
     }
-    
      private void ponMinas(int numeroMinas){
         Random r = new Random();
         for (int i=0; i<numeroMinas; i++)

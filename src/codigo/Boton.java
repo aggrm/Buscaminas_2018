@@ -25,11 +25,11 @@ public class Boton extends JButton{
         j = _j;
         //this.setBorder(null);
         this.setFocusPainted(false);
-        this.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         this.setOpaque(false);
         this.setContentAreaFilled(false);
         this.setBorderPainted(false);
-        //this.setSize(10, 10);
+        //this.setImagen(0);                                                      //para que aparezca sin las minas
+        
     }
     
     public int getJ() {
@@ -55,6 +55,7 @@ public class Boton extends JButton{
     public void setNumeroMinasAlrededor(int numeroMinasAlrededor) {
         this.numeroMinasAlrededor = numeroMinasAlrededor;
     }
+    
     public void setImagen(int num){   
         String nombre = "";
      
