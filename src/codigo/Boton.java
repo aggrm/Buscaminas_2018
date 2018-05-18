@@ -28,7 +28,7 @@ public class Boton extends JButton{
         this.setOpaque(false);
         this.setContentAreaFilled(false);
         this.setBorderPainted(false);
-        //this.setImagen(0);                                                      //para que aparezca sin las minas
+        this.setImagen(0);                                                      //para que aparezca sin las minas
         
     }
     
